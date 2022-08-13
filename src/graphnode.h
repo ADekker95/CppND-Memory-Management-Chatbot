@@ -17,11 +17,11 @@ private:
 
     // data handles (owned)
     //std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
-	// graphhEdge should be owned by the nodes 
+    // graphhEdge should be owned by the nodes 
     std::vector<std::unique_ptr<GraphEdge>>_childEdges; 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-    // chatbot is not a pointer anymore
+    // chatbot is not a pointer anymore but local variable
     //ChatBot *_chatBot;
     // create local var
     ChatBot _chatBot;
@@ -49,7 +49,7 @@ public:
     void AddToken(std::string token); // add answers to list
     void AddEdgeToParentNode(GraphEdge *edge);
     //void AddEdgeToChildNode(GraphEdge *edge);
-    // AddEdgeToChildNOde now gets a std pointer
+    // AddEdgeToChildNOde now gets a unique pointer
     void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
     //// STUDENT CODE
