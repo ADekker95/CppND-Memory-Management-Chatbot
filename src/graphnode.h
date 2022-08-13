@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "chatbot.h"
-
+#include <memory> 
 
 // forward declarations
 class GraphEdge;
@@ -16,11 +16,15 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
-
+    //std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
+	// graphhEdge should be owned by the nodes 
+    std::vector<std::unique_ptr<GraphEdge>>_childEdges; 
     // data handles (not owned)
     std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
-    ChatBot *_chatBot;
+    // chatbot is not a pointer anymore
+    //ChatBot *_chatBot;
+    // create local var
+    ChatBot _chatBot;
 
     ////
     //// EOF STUDENT CODE
@@ -44,12 +48,16 @@ public:
     // proprietary functions
     void AddToken(std::string token); // add answers to list
     void AddEdgeToParentNode(GraphEdge *edge);
-    void AddEdgeToChildNode(GraphEdge *edge);
+    //void AddEdgeToChildNode(GraphEdge *edge);
+    // AddEdgeToChildNOde now gets a std pointer
+    void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
     //// STUDENT CODE
     ////
 
-    void MoveChatbotHere(ChatBot *chatbot);
+    //void MoveChatbotHere(ChatBot *chatbot);
+    // now receives a local variable instead of pointer
+    void MoveChatbotHere(ChatBot chatbot);
 
     ////
     //// EOF STUDENT CODE
